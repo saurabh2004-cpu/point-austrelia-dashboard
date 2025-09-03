@@ -24,11 +24,11 @@ import {
   Paper,
 } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
-import CustomCheckbox from '../../../forms/theme-elements/CustomCheckbox';
-import CustomSwitch from '../../../forms/theme-elements/CustomSwitch';
+import CustomCheckbox from '../../../components/forms/theme-elements/CustomCheckbox';
+// import CustomSwitch from '../../../forms/theme-elements/CustomSwitch';
 import { IconDotsVertical, IconFilter, IconSearch, IconTrash, IconEdit } from '@tabler/icons-react';
-import { ProductContext } from "src/context/EcommerceContext";
-import axiosInstance from '../../../../axios/axiosInstance';
+import { ProductContext } from "../../../context/EcommerceContext";
+import axiosInstance from '../../../axios/axiosInstance';
 import { useNavigate } from 'react-router';
 
 function descendingComparator(a, b, orderBy) {
@@ -160,7 +160,7 @@ const EnhancedTableToolbar = (props) => {
   );
 };
 
-const ProductTableList = ({
+const ListTable = ({
   showCheckBox,
   headCells,
   tableData,
@@ -180,15 +180,16 @@ const ProductTableList = ({
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const sourceData = tableData || [];
-  const [rows, setRows] = useState(sourceData);
+
+  
+  
+  const [rows, setRows] = useState(sourceData ||tableData || []);
   const [search, setSearch] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     if (isBrandsList) {
       setRows(sourceData);
-    } else {
-      setRows(filteredAndSortedProducts);
     }
   }, [sourceData, filteredAndSortedProducts, isBrandsList]);
 
@@ -264,10 +265,10 @@ const ProductTableList = ({
   const theme = useTheme();
   const borderColor = theme.palette.divider;
 
-  //delete brand
-  const handleDeleteBrand = async (id) => {
+  //delete category
+  const handleDeleteCategory = async (id) => {
     try {
-      const res = await axiosInstance.delete(`/brand/delete-brand/${id}`);
+      const res = await axiosInstance.delete(`/category/delete-category/${id}`);
 
       console.log("deleted", res.data);
 
@@ -276,15 +277,15 @@ const ProductTableList = ({
         setRows((prevRows) => prevRows.filter((item) => item._id !== id));
       }
     } catch (error) {
-      console.error('Error deleting brand:', error);
+      console.error('Error deleting category:', error);
     }
   };
 
 
-  //edit brand
+  //edit category
 
-  const handleEditBrand = (id) => {
-      navigate(`/dashboard/brand/edit/${id}`);
+  const handleEditCategory = (id) => {
+      navigate(`/dashboard/category/edit/${id}`);
   };
 
   return (
@@ -315,8 +316,8 @@ const ProductTableList = ({
               />
               <TableBody>
                 {stableSort(rows, getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
+                  ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  ?.map((row, index) => {
                     const isItemSelected = isSelected(row.name || row.title);
                     const labelId = `enhanced-table-checkbox-${index}`;
 
@@ -357,7 +358,7 @@ const ProductTableList = ({
                               </Box>
                             </TableCell>
                             <TableCell>
-                              <Typography>{row.slug}</Typography>
+                              <Typography>{row.brand.name}</Typography>
                             </TableCell>
                             <TableCell>
                               <Typography>{format(new Date(row.createAlt || row.createdAt), 'E, MMM d yyyy')}</Typography>
@@ -365,12 +366,12 @@ const ProductTableList = ({
                             <TableCell>
                               <Box display="flex" gap={1}>
                                 <Tooltip title="Edit">
-                                  <IconButton size="small" color="primary" onClick={() => handleEditBrand(row._id)}>
+                                  <IconButton size="small" color="primary" onClick={() => handleEditCategory(row._id)}>
                                     <IconEdit size="1.1rem" />
                                   </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Delete">
-                                  <IconButton size="small" color="error" onClick={() => handleDeleteBrand(row._id)}>
+                                  <IconButton size="small" color="error" onClick={() => handleDeleteCategory(row._id)}>
                                     <IconTrash size="1.1rem" />
                                   </IconButton>
                                 </Tooltip>
@@ -407,4 +408,4 @@ const ProductTableList = ({
   );
 };
 
-export default ProductTableList;
+export default ListTable;

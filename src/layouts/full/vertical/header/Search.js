@@ -28,7 +28,7 @@ const Search = () => {
   const filterRoutes = (rotr, cSearch) => {
     if (rotr.length > 1)
       return rotr.filter((t) =>
-        t.title ? t.href.toLocaleLowerCase().includes(cSearch.toLocaleLowerCase()) : '',
+        t.title ? t.href?.toLocaleLowerCase().includes(cSearch?.toLocaleLowerCase()) : '',
       );
     return rotr;
   };

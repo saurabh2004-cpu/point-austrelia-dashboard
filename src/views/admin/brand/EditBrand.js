@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid } from '@mui/material';
 import InputAdornment from '@mui/material/InputAdornment';
 import Button from '@mui/material/Button';
@@ -6,20 +6,21 @@ import CustomFormLabel from '../.../../../../components/forms/theme-elements/Cus
 import CustomOutlinedInput from '../.../../../../components/forms/theme-elements/CustomOutlinedInput';
 import { IconBuildingArch, IconMail, IconMessage2, IconPhone, IconUser } from '@tabler/icons';
 import axiosInstance from '../../../axios/axiosInstance';
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams, useSearchParams } from 'react-router';
 
-const CreateBrand = () => {
+const EditBrand = () => {
     const [formData, setFormData] = React.useState({
         name: '',
         slug: ''
     });
     const [error, setError] = React.useState('');
     const navigate = useNavigate();
+    const { id } = useParams(); 
 
     const handleNameChange = (e) => {
         const name = e.target.value;
-        const slug = name.trim().replace(/\s+/g, '-')?.toLowerCase();
-        
+        const slug = name.trim().replace(/\s+/g, '-').toLowerCase();
+
         setFormData({
             ...formData,
             name: name,
@@ -27,28 +28,43 @@ const CreateBrand = () => {
         });
     };
 
-    const handleSubmit = async () => {
+    const fetchBrand = async () => {
         try {
-            const res = await axiosInstance.post('/brand/create-brand', formData, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+            const res = await axiosInstance.get(`/brand/get-brand/${id}`);
 
-            if(res.data.statusCode === 200){
+            console.log("res", res)
+
+            if (res.data.statusCode === 200) {
                 setFormData({
-                    name: '',
-                    slug: ''
+                    name: res.data.data.name,
+                    slug: res.data.data.slug
                 })
-                // navigate('/dashboard/brand/list')
             }
         } catch (error) {
             setError(error.message || 'An error occurred');
             console.error(error.message);
-        }finally{
+        } 
+    };
+
+    const handleSubmit = async()=>{
+        try {
+            const res = await axiosInstance.put(`/brand/update-brand/${id}`, formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            if (res.data.statusCode === 200) {
+                navigate('/dashboard/brands/list');
+            }
+        } catch (error) {
+            console.error(error);
             setError('Something went wrong');
         }
-    };
+    }
+
+    useEffect(() => {
+        fetchBrand();
+    }, [id]);
 
     return (
         <div>
@@ -101,4 +117,4 @@ const CreateBrand = () => {
     );
 };
 
-export default CreateBrand;
+export default EditBrand;

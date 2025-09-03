@@ -166,7 +166,22 @@ const SimpletreeSelection = Loadable(lazy(() => import('../views/mui-trees/simpl
 
 //my imports
 const CreateBrand = Loadable(lazy(() => import('../views/admin/brand/CreateBrand')));
-
+const BrandsList = Loadable(lazy(() => import('../views/admin/brand/BrandsList')));
+const EditBrand = Loadable(lazy(() => import('../views/admin/brand/EditBrand')));
+const CreateCategory = Loadable(lazy(() => import('../views/admin/category/createCategory')));
+const CategoriesList = Loadable(lazy(() => import('../views/admin/category/CategoriesList')));
+const EditCategory = Loadable(lazy(() => import('../views/admin/category/EditCategory')));
+const CreateSubCategory = Loadable(lazy(() => import('../views/admin/subcategory/CreateSubCategory')));
+const SubCategoryList = Loadable(lazy(() => import('../views/admin/subcategory/SubCategoryList')));
+const EditSubCategory = Loadable(lazy(() => import('../views/admin/subcategory/EditSubCategory')));
+const CreateBadge = Loadable(lazy(() => import('../views/admin/badge/createBadge')));
+const BadgeList = Loadable(lazy(() => import('../views/admin/badge/BadgeList')));
+const EditBadge = Loadable(lazy(() => import('../views/admin/badge/EditBadge')));
+const ListPricingGroups = Loadable(lazy(() => import('../views/admin/pricingGroups/ListPricingGroups')));
+const CreatePricingGroups = Loadable(lazy(() => import('../views/admin/pricingGroups/CreatePricingGroups')));
+const EditPricingGroups = Loadable(lazy(() => import('../views/admin/pricingGroups/EditPricingGroups')));
+const CreatePricingGroupsDiscounts = Loadable(lazy(() => import('../views/admin/pricingGroupsDiscounts/createPricingGroupsDiscounts')));
+const ListPricingGroupsDiscounts = Loadable(lazy(() => import('../views/admin/pricingGroupsDiscounts/ListPricingGroupsDiscounts')));
 
 const Router = [
   {
@@ -280,8 +295,27 @@ const Router = [
       // my routes
       { path: '/dashboard/Brand', element: <EcommerceDash /> },
       { path: '/dashboard/Brand/create', element: <CreateBrand /> },
+      { path: '/dashboard/brands/list', element: <BrandsList /> },
+      { path: '/dashboard/brand/edit/:id', element: <EditBrand /> },
+      
+      { path: '/dashboard/category/create', element: <CreateCategory /> },
+      { path: '/dashboard/category/list', element: <CategoriesList /> },
+      { path: '/dashboard/category/edit/:id', element: <EditCategory /> },
 
+      { path: '/dashboard/sub-category/create', element: <CreateSubCategory /> },
+      { path: '/dashboard/sub-category/list', element: <SubCategoryList /> },
+      { path: '/dashboard/subcategory/edit/:id', element: <EditSubCategory /> },
 
+      { path: '/dashboard/badge/create', element: <CreateBadge /> },
+      { path: '/dashboard/badge/list', element: <BadgeList /> },
+      { path: '/dashboard/badge/edit/:id', element: <EditBadge /> },
+      
+      { path: '/dashboard/pricing-groups/create', element: <CreatePricingGroups /> },
+      { path: '/dashboard/pricing-groups/list', element: <ListPricingGroups /> },
+      { path: '/dashboard/pricing-groups/edit/:id', element: <EditPricingGroups /> },
+      
+      { path: '/dashboard/pricing-groups-discounts/create', element: <CreatePricingGroupsDiscounts /> },
+      { path: '/dashboard/pricing-groups-discounts/list', element: <ListPricingGroupsDiscounts /> },
     ],
   },
   {

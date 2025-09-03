@@ -95,118 +95,94 @@ const Menuitems = [
       },
       {
         id: uniqueId(),
-        title: 'Category List',
+        title: 'Brands List',
         icon: IconPoint,
-        href: '/admin/category-list',
+        href: '/dashboard/brands/list',
       },
-      {
-        id: uniqueId(),
-        title: 'Create Course',
-        icon: IconPoint,
-        href: '/admin/create-course',
-      },
-      {
-        id: uniqueId(),
-        title: 'Course List',
-        icon: IconPoint,
-        href: '/admin/course-list',
-      },
-      {
-        id: uniqueId(),
-        title: 'Pending Course',
-        icon: IconPoint,
-        href: '/admin/pending-course',
-      }
     ]
   },
 
   {
     id: uniqueId(),
-    title: 'Enrollment',
+    title: 'Category',
     icon: IconPackage,
     chip: '2',
     chipColor: 'secondary',
-    href: '/admin/enrollment',
+    // href: '/dashboard/category',
     children: [
       {
         id: uniqueId(),
-        title: 'enrollment list',
+        title: 'Create Category',
         icon: IconPoint,
-        href: '/admin/enrollment-list',
+        href: '/dashboard/category/create',
       },
       {
         id: uniqueId(),
-        title: 'pending payment',
+        title: 'Category List',
         icon: IconPoint,
-        href: '/admin/pending-payment/1',
-      },
-      {
-        id: uniqueId(),
-        title: 'rejected payment',
-        icon: IconPoint,
-        href: '/admin/rejected-payment/1',
+        href: '/dashboard/category/list',
       },
     ]
   },
   {
     id: uniqueId(),
-    title: 'Manage Coupen',
+    title: 'Sub Category',
     icon: IconUserCircle,
-    href: '/admin/manage-coupen',
+    href: '/dashboard/sub-category',
     children: [
       {
         id: uniqueId(),
-        title: 'Coupen List',
+        title: 'Create Sub Category',
         icon: IconPoint,
-        href: '/admin/coupen-list',
+        href: '/dashboard/sub-category/create',
       },
       {
         id: uniqueId(),
-        title: 'Coupen log',
+        title: 'Sub Category List',
         icon: IconPoint,
-        href: '/admin/coupen-log',
+        href: '/dashboard/sub-category/list',
       },
     ]
 
   },
   {
     id: uniqueId(),
-    title: 'Manage Widrawa',
+    title: 'Badge',
     icon: IconUserCircle,
-    href: '/admin/manage-widrawa',
+    // href: '/admin/manage-widrawa',
     children: [
       {
         id: uniqueId(),
-        title: 'withdraw Method',
+        title: 'Create Badge',
         icon: IconPoint,
-        href: '/admin/withdraw-method',
+        href: '/dashboard/badge/create',
       },
       {
         id: uniqueId(),
-        title: 'Withdraw List',
+        title: 'Badge List',
         icon: IconPoint,
-        href: '/admin/withdraw-list',
+        href: '/dashboard/badge/list',
       },
     ]
 
   },
   {
     id: uniqueId(),
-    title: 'Manage Instructor',
+    title: 'Pricing Groups',
     icon: IconUserCircle,
-    href: '/admin/manage-widrawa',
+    href: '/dashboard/pricing-groups',
     children: [
       {
         id: uniqueId(),
-        title: 'Instructor List',
+        title: 'Create Pricing Group',
         icon: IconPoint,
-        href: '/admin/instructor-list',
+        href: '/dashboard/pricing-groups/create',
       },
       {
         id: uniqueId(),
-        title: 'Join Request',
+        title: 'List Pricing Groups',
         icon: IconPoint,
-        href: '/admin/join-request',
+        href: '/dashboard/pricing-groups/list',
       },
     ]
 
@@ -214,21 +190,21 @@ const Menuitems = [
 
   {
     id: uniqueId(),
-    title: 'Manage-student',
+    title: 'Pricing Groups Discounts',
     icon: IconChartDonut3,
-    href: '/admin/manage-student/',
+    href: '/dashboard/pricing-groups-discounts',
     children: [
       {
         id: uniqueId(),
-        title: 'Student List',
+        title: 'Create Discount',
         icon: IconPoint,
-        href: '/admin/student-list',
+        href: '/dashboard/pricing-groups-discounts/create',
       },
       {
         id: uniqueId(),
-        title: 'Pending Student',
+        title: 'List Discounts',
         icon: IconPoint,
-        href: '/admin/pending-student',
+        href: '/dashboard/pricing-groups-discounts/list',
       },
     ],
   },
