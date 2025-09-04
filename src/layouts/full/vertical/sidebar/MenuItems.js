@@ -190,7 +190,7 @@ const Menuitems = [
 
   {
     id: uniqueId(),
-    title: 'Pricing Groups Discounts',
+    title: 'Groups Discounts',
     icon: IconChartDonut3,
     href: '/dashboard/pricing-groups-discounts',
     children: [
@@ -210,54 +210,88 @@ const Menuitems = [
   },
   {
     id: uniqueId(),
-    title: 'Contact Message',
+    title: 'Tax',
     icon: IconBasket,
-    href: '/admin/contact-message',
-
-  },
-  {
-    id: uniqueId(),
-    title: 'Support Ticket',
-    icon: IconMessage2,
-    href: '/admin/support-ticket',
-  },
-
-  {
-    navlabel: true,
-    subheader: 'CMS & Blogs',
-  },
-  {
-    id: uniqueId(),
-    title: 'Manage Blogs',
-    icon: IconNotebook,
-    href: '/admin/manage-blogs',
+    href: '/dashboard/tax',
     children: [
       {
         id: uniqueId(),
-        title: 'Create Category',
+        title: 'Create Tax',
         icon: IconPoint,
-        href: '/admin/create-category',
+        href: '/dashboard/tax/create',
       },
       {
         id: uniqueId(),
-        title: 'Category List',
+        title: 'Tax List',
         icon: IconPoint,
-        href: '/admin/blog-category',
+        href: '/dashboard/tax/list',
+      },
+    ],
+  },
+  {
+    id: uniqueId(),
+    title: 'Delivery Vendors',
+    icon: IconMessage2,
+    href: '/dashboard/delivery-vendors',
+    children: [
+      {
+        id: uniqueId(),
+        title: 'Create Delivery Vendor',
+        icon: IconPoint,
+        href: '/dashboard/delivery-vendors/create',
       },
       {
         id: uniqueId(),
-        title: 'Create Blog',
+        title: 'Delivery Vendor List',
         icon: IconPoint,
-        href: '/admin/create-blog',
+        href: '/dashboard/delivery-vendors/list',
+      },
+    ],
+  },
+
+  {
+    id: uniqueId(),
+    title: 'Pack Types',
+    icon: IconMessage2,
+    href: '/dashboard/pack-types',
+    children: [
+      {
+        id: uniqueId(),
+        title: 'Create Pack Type',
+        icon: IconPoint,
+        href: '/dashboard/pack-types/create',
       },
       {
         id: uniqueId(),
-        title: 'Blog List',
+        title: 'Pack Type List',
         icon: IconPoint,
-        href: '/admin/blog-list',
-      }
+        href: '/dashboard/pack-types/list',
+      },
+    ],
+  },
+
+
+  {
+    id: uniqueId(),
+    title: 'Products',
+    icon: IconNotebook,
+    href: '/dashboard/products',
+    children: [
+      {
+        id: uniqueId(),
+        title: 'Create Product',
+        icon: IconPoint,
+        href: '/dashboard/products/create',
+      },
+      {
+        id: uniqueId(),
+        title: 'Product List',
+        icon: IconPoint,
+        href: '/dashboard/products/list',
+      },
     ]
   },
+  
   {
     id: uniqueId(),
     title: 'Manage Pages',

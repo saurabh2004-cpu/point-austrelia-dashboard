@@ -168,7 +168,7 @@ const SimpletreeSelection = Loadable(lazy(() => import('../views/mui-trees/simpl
 const CreateBrand = Loadable(lazy(() => import('../views/admin/brand/CreateBrand')));
 const BrandsList = Loadable(lazy(() => import('../views/admin/brand/BrandsList')));
 const EditBrand = Loadable(lazy(() => import('../views/admin/brand/EditBrand')));
-const CreateCategory = Loadable(lazy(() => import('../views/admin/category/createCategory')));
+const CreateCategory = Loadable(lazy(() => import('../views/admin/category/CreateCategory')));
 const CategoriesList = Loadable(lazy(() => import('../views/admin/category/CategoriesList')));
 const EditCategory = Loadable(lazy(() => import('../views/admin/category/EditCategory')));
 const CreateSubCategory = Loadable(lazy(() => import('../views/admin/subcategory/CreateSubCategory')));
@@ -182,6 +182,21 @@ const CreatePricingGroups = Loadable(lazy(() => import('../views/admin/pricingGr
 const EditPricingGroups = Loadable(lazy(() => import('../views/admin/pricingGroups/EditPricingGroups')));
 const CreatePricingGroupsDiscounts = Loadable(lazy(() => import('../views/admin/pricingGroupsDiscounts/createPricingGroupsDiscounts')));
 const ListPricingGroupsDiscounts = Loadable(lazy(() => import('../views/admin/pricingGroupsDiscounts/ListPricingGroupsDiscounts')));
+const EditPricingGroupsDiscounts = Loadable(lazy(() => import('../views/admin/pricingGroupsDiscounts/EditPricingGroupsDiscounts')));
+const CreateTax = Loadable(lazy(() => import('../views/admin/tax/CreateTax')));
+const ListTax = Loadable(lazy(() => import('../views/admin/tax/ListTax')));
+const EditTax = Loadable(lazy(() => import('../views/admin/tax/EditTax')));
+const CreateDeliverVendor = Loadable(lazy(() => import('../views/admin/deliverVendor/CreateDeliverVendor')));
+const ListDeliveryVendor = Loadable(lazy(() => import('../views/admin/deliverVendor/ListDeliveryVendor')));
+const EditDeliveryVendor = Loadable(lazy(() => import('../views/admin/deliverVendor/EditDeliveryVendor')));
+const CreatePackTypes = Loadable(lazy(() => import('../views/admin/packTypes/CreatePackTypes')));
+const ListPackTypes = Loadable(lazy(() => import('../views/admin/packTypes/ListPackTypes')));
+const EditPackTypes = Loadable(lazy(() => import('../views/admin/packTypes/EditPackTypes')));
+const CreateProduct = Loadable(lazy(() => import('../views/admin/products/CreateProduct')));
+const ListProduct = Loadable(lazy(() => import('../views/admin/products/ListProduct')));
+const EditProduct = Loadable(lazy(() => import('../views/admin/products/EditProduct')));
+
+
 
 const Router = [
   {
@@ -288,16 +303,16 @@ const Router = [
       { path: '/mui-trees/simpletree/simpletree-focus', element: <SimpletreeFocus /> },
       { path: '/mui-trees/simpletree/simpletree-items', element: <SimpletreeItems /> },
       { path: '/mui-trees/simpletree/simpletree-selection', element: <SimpletreeSelection /> },
-      
+
       { path: '*', element: <Navigate to="/auth/404" /> },
-      
-      
+
+
       // my routes
       { path: '/dashboard/Brand', element: <EcommerceDash /> },
       { path: '/dashboard/Brand/create', element: <CreateBrand /> },
       { path: '/dashboard/brands/list', element: <BrandsList /> },
       { path: '/dashboard/brand/edit/:id', element: <EditBrand /> },
-      
+
       { path: '/dashboard/category/create', element: <CreateCategory /> },
       { path: '/dashboard/category/list', element: <CategoriesList /> },
       { path: '/dashboard/category/edit/:id', element: <EditCategory /> },
@@ -309,13 +324,31 @@ const Router = [
       { path: '/dashboard/badge/create', element: <CreateBadge /> },
       { path: '/dashboard/badge/list', element: <BadgeList /> },
       { path: '/dashboard/badge/edit/:id', element: <EditBadge /> },
-      
+
       { path: '/dashboard/pricing-groups/create', element: <CreatePricingGroups /> },
       { path: '/dashboard/pricing-groups/list', element: <ListPricingGroups /> },
       { path: '/dashboard/pricing-groups/edit/:id', element: <EditPricingGroups /> },
-      
+
       { path: '/dashboard/pricing-groups-discounts/create', element: <CreatePricingGroupsDiscounts /> },
       { path: '/dashboard/pricing-groups-discounts/list', element: <ListPricingGroupsDiscounts /> },
+      { path: '/dashboard/pricing-groups-discounts/edit/:id', element: <EditPricingGroupsDiscounts /> },
+
+
+      { path: '/dashboard/tax/create', element: <CreateTax /> },
+      { path: '/dashboard/tax/list', element: <ListTax /> },
+      { path: '/dashboard/tax/edit/:id', element: <EditTax /> },
+
+      { path: '/dashboard/delivery-vendors/create', element: <CreateDeliverVendor /> },
+      { path: '/dashboard/delivery-vendors/list', element: <ListDeliveryVendor /> },
+      { path: '/dashboard/delivery-vendors/edit/:id', element: <EditDeliveryVendor /> },
+      
+      { path: '/dashboard/pack-types/create', element: <CreatePackTypes /> },
+      { path: '/dashboard/pack-types/list', element: <ListPackTypes /> },
+      { path: '/dashboard/pack-types/edit/:id', element: <EditPackTypes /> },
+      
+      { path: '/dashboard/products/create', element: <CreateProduct /> },
+      { path: '/dashboard/products/list', element: <ListProduct /> },
+      { path: '/dashboard/products/edit/:id', element: <EditProduct /> },
     ],
   },
   {

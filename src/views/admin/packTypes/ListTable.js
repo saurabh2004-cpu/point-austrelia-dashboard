@@ -178,11 +178,11 @@ const EnhancedTableToolbar = (props) => {
               <IconFilter size="1.2rem" />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Export CSV">
+          {/* <Tooltip title="Export CSV">
             <IconButton onClick={handleExportCSV}>
               <Button size="small" variant="outlined" onClick={handleExportCSV}>Export</Button>
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
         </>
       )}
     </Toolbar>
@@ -296,10 +296,10 @@ const ListTable = ({
   const theme = useTheme();
   const borderColor = theme.palette.divider;
 
-  //delete pricing group
-  const handleDeletePricingGroup = async (id) => {
+  //delete pack
+  const handleDeletePack = async (id) => {
     try {
-      const res = await axiosInstance.delete(`/pricing-groups-discount/delete-pricing-group-discount/${id}`);
+      const res = await axiosInstance.delete(`/packs-types/delete-packs-type/${id}`);
 
       console.log("deleted", res.data);
 
@@ -308,15 +308,14 @@ const ListTable = ({
         setRows((prevRows) => prevRows.filter((item) => item._id !== id));
       }
     } catch (error) {
-      console.error('Error deleting category:', error);
+      console.error('Error deleting pack:', error);
     }
   };
 
 
-  //edit category
-
-  const handleEditPricingGroup = (id) => {
-    navigate(`/dashboard/pricing-groups-discounts/edit/${id}`);
+  //edit pack
+  const handleEditPack = (id) => {
+    navigate(`/dashboard/pack-types/edit/${id}`);
   };
 
   return (
@@ -396,24 +395,14 @@ const ListTable = ({
                                   }}
                                 >
                                   <Typography fontWeight="600">
-                                    {row.productSku}
+                                    {row.name}
                                   </Typography>
                                 </Box>
                               </Box>
                             </TableCell>
                             <TableCell>
                               <Typography fontWeight="600">
-                                {row?.pricingGroup?.name || 'N/A'}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography fontWeight="600">
-                                {row.customerId}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography fontWeight="600">
-                                {row.percentage}%
+                                {row.quantity}
                               </Typography>
                             </TableCell>
 
@@ -423,12 +412,12 @@ const ListTable = ({
                             <TableCell>
                               <Box display="flex" gap={1}>
                                 <Tooltip title="Edit">
-                                  <IconButton size="small" color="primary" onClick={() => handleEditPricingGroup(row._id)}>
+                                  <IconButton size="small" color="primary" onClick={() => handleEditPack(row._id)}>
                                     <IconEdit size="1.1rem" />
                                   </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Delete">
-                                  <IconButton size="small" color="error" onClick={() => handleDeletePricingGroup(row._id)}>
+                                  <IconButton size="small" color="error" onClick={() => handleDeletePack(row._id)}>
                                     <IconTrash size="1.1rem" />
                                   </IconButton>
                                 </Tooltip>

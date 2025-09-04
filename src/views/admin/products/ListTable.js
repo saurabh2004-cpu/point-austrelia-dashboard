@@ -72,7 +72,7 @@ function EnhancedTableHead(props) {
   return (
     <TableHead>
       <TableRow>
-        {showCheckBox && <TableCell padding="checkbox">
+        {showCheckBox && <TableCell padding="checkbox"  >
           <CustomCheckbox
             color="primary"
             checked={rowCount > 0 && numSelected === rowCount}
@@ -113,8 +113,8 @@ const EnhancedTableToolbar = (props) => {
 
   const handleExportCSV = async () => {
     try {
-      const response = await axios.get(
-        'http://localhost:3000/api/v1/pricing-groups-discount/export-pricing-group-discounts',
+      const response = await axiosInstance.get(
+        '/products/export-products',
         { responseType: 'blob' }
       );
 
@@ -194,7 +194,8 @@ const ListTable = ({
   showCheckBox,
   headCells,
   tableData,
-  isBrandsList = false,
+  isProductsList = true,
+  isBrandsList = true,
   setTableData
 }) => {
 
@@ -228,17 +229,18 @@ const ListTable = ({
     const searchValue = event.target.value.toLowerCase();
     setSearch(searchValue);
 
-    if (isBrandsList) {
+    if (isProductsList) {
       const filteredRows = sourceData.filter((row) => {
-        return row.name.toLowerCase().includes(searchValue);
-      });
-      setRows(filteredRows);
-    } else {
-      const filteredRows = filteredAndSortedProducts.filter((row) => {
-        return row.title.toLowerCase().includes(searchValue);
+        return (
+          row.sku?.toLowerCase().includes(searchValue) ||
+          row.ProductName?.toLowerCase().includes(searchValue) ||
+          row.pricingGroup?.name?.toLowerCase().includes(searchValue) ||
+          row.commerceCategoriesOne?.name?.toLowerCase().includes(searchValue)
+        );
       });
       setRows(filteredRows);
     }
+    // ... other conditions
   };
 
   const handleRequestSort = (event, property) => {
@@ -249,7 +251,7 @@ const ListTable = ({
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name || n.title);
+      const newSelecteds = rows.map((n) => n?.name || n.title);
       setSelected(newSelecteds);
       return;
     }
@@ -296,10 +298,10 @@ const ListTable = ({
   const theme = useTheme();
   const borderColor = theme.palette.divider;
 
-  //delete pricing group
-  const handleDeletePricingGroup = async (id) => {
+  //delete product
+  const handleDelete = async (id) => {
     try {
-      const res = await axiosInstance.delete(`/pricing-groups-discount/delete-pricing-group-discount/${id}`);
+      const res = await axiosInstance.delete(`/products/delete-product/${id}`);
 
       console.log("deleted", res.data);
 
@@ -308,15 +310,14 @@ const ListTable = ({
         setRows((prevRows) => prevRows.filter((item) => item._id !== id));
       }
     } catch (error) {
-      console.error('Error deleting category:', error);
+      console.error('Error deleting pack:', error);
     }
   };
 
 
-  //edit category
-
-  const handleEditPricingGroup = (id) => {
-    navigate(`/dashboard/pricing-groups-discounts/edit/${id}`);
+  //edit product
+  const handleEdit = (id) => {
+    navigate(`/dashboard/products/edit/${id}`);
   };
 
   return (
@@ -329,7 +330,7 @@ const ListTable = ({
           placeholder={isBrandsList ? "Search Brand" : "Search Product"}
         />
         <Paper variant="outlined" sx={{ mx: 2, mt: 1, border: `1px solid ${borderColor}` }}>
-          <TableContainer>
+          <TableContainer >
             <Table
               sx={{ minWidth: 750 }}
               aria-labelledby="tableTitle"
@@ -349,7 +350,7 @@ const ListTable = ({
                 {stableSort(rows, getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
-                    const isItemSelected = isSelected(row.name || row.title);
+                    const isItemSelected = isSelected(row?.ProductName || row.title);
                     const labelId = `enhanced-table-checkbox-${index}`;
 
                     return (
@@ -372,63 +373,36 @@ const ListTable = ({
                           />
                         </TableCell>}
 
-                        {isBrandsList ? (
-                          // Brands List View
+                        { isProductsList ? (
+                          // Products List View - Updated to handle nested objects
                           <>
+                            <TableCell>{index + 1}</TableCell>
+                            <TableCell>{row.sku}</TableCell>
+                            <TableCell>{row.ProductName}</TableCell> {/* Capital P to match API */}
+                            <TableCell>{row.stockLevel}</TableCell>
+                            <TableCell>{row.pricingGroup?.name || 'N/A'}</TableCell> {/* Access nested name */}
+                            <TableCell>{row.commerceCategoriesOne?.name || 'N/A'}</TableCell> {/* Access nested name */}
+                            <TableCell>{row.commerceCategoriesTwo?.name || 'N/A'}</TableCell> {/* Access nested name */}
+                            <TableCell>{row.commerceCategoriesThree?.name || 'N/A'}</TableCell> {/* Access nested name */}
                             <TableCell>
-                              <Box display="flex" alignItems="center">
-                                <Box
-                                  sx={{
-                                    ml: 2,
-                                  }}
-                                >
-                                  <Typography fontWeight="600">
-                                    {index + 1}
-                                  </Typography>
-                                </Box>
-                              </Box>
+                              {row.storeDescription ?
+                                row.storeDescription.replace(/<[^>]*>/g, '').substring(0, 50) + '...' :
+                                'No description'
+                              }
                             </TableCell>
-                            <TableCell>
-                              <Box display="flex" alignItems="center">
-                                <Box
-                                  sx={{
-                                    ml: 2,
-                                  }}
-                                >
-                                  <Typography fontWeight="600">
-                                    {row.productSku}
-                                  </Typography>
-                                </Box>
-                              </Box>
-                            </TableCell>
-                            <TableCell>
-                              <Typography fontWeight="600">
-                                {row?.pricingGroup?.name || 'N/A'}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography fontWeight="600">
-                                {row.customerId}
-                              </Typography>
-                            </TableCell>
-                            <TableCell>
-                              <Typography fontWeight="600">
-                                {row.percentage}%
-                              </Typography>
-                            </TableCell>
-
-                            <TableCell>
-                              <Typography>{format(new Date(row.createAlt || row.createdAt), 'E, MMM d yyyy')}</Typography>
-                            </TableCell>
+                            <TableCell>{row.pageTitle || 'N/A'}</TableCell>
+                            <TableCell>{row.eachBarcodes || 'N/A'}</TableCell>
+                            <TableCell>{row.packBarcodes || 'N/A'}</TableCell>
+                            <TableCell>{format(new Date(row.createdAt), 'E, MMM d yyyy')}</TableCell>
                             <TableCell>
                               <Box display="flex" gap={1}>
                                 <Tooltip title="Edit">
-                                  <IconButton size="small" color="primary" onClick={() => handleEditPricingGroup(row._id)}>
+                                  <IconButton size="small" color="primary" onClick={() => handleEdit(row._id)}>
                                     <IconEdit size="1.1rem" />
                                   </IconButton>
                                 </Tooltip>
                                 <Tooltip title="Delete">
-                                  <IconButton size="small" color="error" onClick={() => handleDeletePricingGroup(row._id)}>
+                                  <IconButton size="small" color="error" onClick={() => handleDelete(row._id)}>
                                     <IconTrash size="1.1rem" />
                                   </IconButton>
                                 </Tooltip>
@@ -436,7 +410,6 @@ const ListTable = ({
                             </TableCell>
                           </>
                         ) : (
-                          // Products List View (original code)
                           ''
                         )}
                       </TableRow>
